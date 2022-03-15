@@ -26,8 +26,8 @@ class depPanel:
         SwitchLabel.place(x=593, y=264, height=30, width=177)
         self.DepositPerc = ui.double_element(window, "Deposit, % ", 415, 297, 230, 124)
         self.DepositAmount = ui.checkbox_element(window, "Deposit, amount", 415, 330, 230, 124, 0, self.deposit_check)
-        self.DepositAmount[0]['state'] = 'disabled'
-        self.DepositAmount[1].deselect()
+        self.DepositPerc[0]['state'] = 'disabled'
+        self.DepositAmount[1].select()
 
         self.boxcollect = tk.IntVar()
         self.collecttaxes = tk.Checkbutton(window, text="Collect taxes with the deposit?", variable=self.boxcollect,
@@ -41,13 +41,13 @@ class depPanel:
                self.boxcollect.get()
 
     def deposit_check(self):
-        if self.DepositAmount[2].get() == 1:
+        if self.DepositAmount[2].get() == 1:  #  если onvalue=0, иначе offvalue=1
             self.DepositAmount[0]['state'] = 'disabled'
             self.DepositPerc[0]['state'] = 'normal'
-            self.collecttaxes.place(width=355, height=30)
+            self.collecttaxes.place(width=0, height=0)
         else:
             self.DepositAmount[0]['state'] = 'normal'
             self.DepositPerc[0]['state'] = 'disabled'
-            self.collecttaxes.place(width=0, height=0)
+            self.collecttaxes.place(width=355, height=30)
 
 

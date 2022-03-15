@@ -111,10 +111,10 @@ def show(*args):
                 result += int(addondata[n][0].get()) * int(addondata[n][1].get())
             return result
 
-        def get_taxes(BaseSubtotalafterdiscounts):
+        def get_taxes(BaseSubtotalafterExStDiscAddons):
             taxdata = tax.get_data()
-
             result = 0
+            taxpercamount = 0
             for n in range(0, len(taxdata)):
                 if taxdata[n][0].get() == "Amount":
                     if taxdata[n][2].get() == 1:
@@ -127,19 +127,26 @@ def show(*args):
                         result += int(taxdata[n][1].get())
                         print("3", result)
                 else:
-                    result += int(taxdata[n][1].get()) / 100 * BaseSubtotalafterdiscounts
-            return result
+                    result += int(taxdata[n][1].get()) / 100 * BaseSubtotalafterExStDiscAddons
+                    taxpercamount += int(taxdata[n][1].get())  # под вопросом как должно работать, нужно подсчитать все проценты либо 0
+
+                print("totaltax", result)
+                print("taxpercamount", taxpercamount)
+            return result, taxpercamount
 
 
-        def get_SubTotalAddonsTaxDep(basesubtotalafterexstdisc, addons, taxes):
+        def get_SubTotalAddonsTaxDep(addons, totaltax, taxpercamount, BaseSubtotalafterExStDiscAddons):
             result = 0
-            value1 = basesubtotalafterexstdisc + addons + taxes
-            value2 = basesubtotalafterexstdisc + addons
+            DepositTaxAmount = 0
             if depositValue[2]['text'] == "ON":
                 if depositValue[3] == 0:  # Активный чекбокс Депозит Amount, если onvalue=0, иначе offvalue=1
-                    result += value1 - int(depositValue[0])
+                    DepositTaxAmount += int(depositValue[0]) * (taxpercamount / 100)
+                    print("DepTaxA", DepositTaxAmount)
+                    result += BaseSubtotalafterExStDiscAddons * taxpercamount / 100 + DepositTaxAmount
+                    #  result += value1 - int(depositValue[0])
+                    print("DepSubTotal", result)
                     return result
-                else:
+                """else:
                     if depositValue[4] == 0:  # Активынй чекбокс Collect taxes with the deposit?
                         result += value1 - (float(depositValue[1]) / 100 * value1)
                         return result
@@ -148,22 +155,29 @@ def show(*args):
                         return result
             else:
                 result += value1
-                return result
+                return result"""
+
 
         ExStayDisc = [ExtStDiscAmountValue, ExStayDiscPercValue]
         Discount = [DiscAmountValue, DiscInPercValue]  # это купоны, либо 40$ , либо 60$ либо нет купона
         Lodging = [PricePersonValue * NumOfguestsValue, CostTobookPrValue]
 
         BaseSubtotal = NumOfNightsValue * get_lodging()
-        BaseSubtotalafterExStDisc = BaseSubtotal - get_ExStayDisc(BaseSubtotal)
-        BaseSubtotalafterdiscounts = BaseSubtotal - get_ExStayDisc(BaseSubtotal) - get_discount()
-        GrandTotalwithDeposit = get_SubTotalAddonsTaxDep(BaseSubtotalafterExStDisc, get_addons(),
-                                                         get_taxes(BaseSubtotalafterdiscounts))
-        RemainingAmount = GrandTotalwithDeposit - get_discount()
 
-        FinalPayment = int(RemainingAmount + (FeeValue / 100 * RemainingAmount) * 100) / 100
+        BaseSubtotalafterExStDiscAddons = BaseSubtotal - get_ExStayDisc(BaseSubtotal) + get_addons() # эта формула нужна, чтоб взять процентную таксу (без учёта discount)
 
-        lb2 = tk.Label(calc, text="Result: " + str(FinalPayment), fg="#eee", bg="#115A36", font=("Arial", 15, "bold"))
+        BaseSubTotalafterDiscounts = BaseSubtotal - get_ExStayDisc(BaseSubtotal) - get_discount()
+
+        taxes = get_taxes(BaseSubtotalafterExStDiscAddons)
+        DepositSubtotal = get_SubTotalAddonsTaxDep(get_addons(), taxes[0], taxes[1], BaseSubtotalafterExStDiscAddons)
+        print(DepositSubtotal)
+
+        FinalPayment = BaseSubTotalafterDiscounts + get_addons() + taxes[0] - DepositSubtotal
+        print(FinalPayment)
+        FullPayment = 0
+        FullPayment += float(FinalPayment + (FeeValue / 100 * FinalPayment)) * 100 / 100
+
+        lb2 = tk.Label(calc, text="Result: " + str(FullPayment), fg="#eee", bg="#115A36", font=("Arial", 15, "bold"))
         lb2.place(x=500, y=710, height=50, width=200)
 
     submit_button1 = tk.Button(calc, text="Submit", background="#333", foreground="#eee", font=("Arial", 15, "bold"),
