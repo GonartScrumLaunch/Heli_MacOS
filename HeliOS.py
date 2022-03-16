@@ -9,9 +9,6 @@ TypeAdventures = ("SeatPr_Multiday_L", "Seat_Multiday_NoL", "SeatPricingNightlyR
                   "Flat_Daily_NoL", "Flat_SingleDay_aNoL")
 Currency = ("USD", "BRL", "CAD", "NZD", "AUD", "EUR", "ISK", "MXN", "GBP", "INR", "CHF", "JPY")
 win = tk.Tk()
-
-photo = tk.PhotoImage(file=r"C:\Users\Legion\Desktop\heli_manager\HeliOS.png")
-win.iconphoto(False, photo)
 win.config(bg='#A0A0A0')
 win.title('Heli Manager')
 win.geometry('800x400+10+10')

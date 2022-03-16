@@ -11,8 +11,6 @@ def show(*args):
     deposit = Deposit.depPanel()
     addon = AddonsPanel.addons()
     calc = tk.Toplevel()
-    photo2 = tk.PhotoImage(file=r"C:\Users\Legion\Desktop\heli_manager\HeliOS.png")
-    calc.iconphoto(False, photo2)
     calc.config(bg='#A0A0A0')
     calc.title('Heli calculator')
     calc.geometry('1185x800+700+10')
@@ -132,30 +130,34 @@ def show(*args):
 
                 print("totaltax", result)
                 print("taxpercamount", taxpercamount)
-            return result, taxpercamount
+            return result, taxpercamount,
 
 
         def get_SubTotalAddonsTaxDep(addons, totaltax, taxpercamount, BaseSubtotalafterExStDiscAddons):
             result = 0
             DepositTaxAmount = 0
+            DepositAmount = 0
             if depositValue[2]['text'] == "ON":
                 if depositValue[3] == 0:  # Активный чекбокс Депозит Amount, если onvalue=0, иначе offvalue=1
-                    DepositTaxAmount += int(depositValue[0]) * (taxpercamount / 100)
-                    print("DepTaxA", DepositTaxAmount)
-                    result += BaseSubtotalafterExStDiscAddons * taxpercamount / 100 + DepositTaxAmount
-                    #  result += value1 - int(depositValue[0])
-                    print("DepSubTotal", result)
-                    return result
-                """else:
                     if depositValue[4] == 0:  # Активынй чекбокс Collect taxes with the deposit?
-                        result += value1 - (float(depositValue[1]) / 100 * value1)
+                        DepositTaxAmount += int(depositValue[0]) * (taxpercamount / 100)
+                        print("DepTaxA", DepositTaxAmount)
+                        result += int(depositValue[0]) + DepositTaxAmount
+                        print("DepSubTotal on", result)
                         return result
                     else:
-                        result += (value2 - float(depositValue[1]) / 100 * value2) + taxes
+                        result += int(depositValue[0])
+                        print("DepSubTotal off", result)
                         return result
+                else:
+                    DepositAmount += BaseSubtotalafterExStDiscAddons * (float(depositValue[1]) / 100)
+                    print("DepTaxA", DepositAmount)
+                    DepositTaxAmount += DepositAmount * (taxpercamount / 100)
+                    result += DepositAmount + DepositTaxAmount
+                    print("DepSubTotal %", result)
+                    return result
             else:
-                result += value1
-                return result"""
+                return result
 
 
         ExStayDisc = [ExtStDiscAmountValue, ExStayDiscPercValue]
@@ -173,11 +175,11 @@ def show(*args):
         print(DepositSubtotal)
 
         FinalPayment = BaseSubTotalafterDiscounts + get_addons() + taxes[0] - DepositSubtotal
-        print(FinalPayment)
-        FullPayment = 0
-        FullPayment += float(FinalPayment + (FeeValue / 100 * FinalPayment)) * 100 / 100
+        print("FinalPay", FinalPayment)
 
-        lb2 = tk.Label(calc, text="Result: " + str(FullPayment), fg="#eee", bg="#115A36", font=("Arial", 15, "bold"))
+        FullPayment = float(FinalPayment + FeeValue / 100 * FinalPayment)
+
+        lb2 = tk.Label(calc, text="Result: " + str(round(FullPayment, 2)), fg="#eee", bg="#115A36", font=("Arial", 15, "bold"))
         lb2.place(x=500, y=710, height=50, width=200)
 
     submit_button1 = tk.Button(calc, text="Submit", background="#333", foreground="#eee", font=("Arial", 15, "bold"),
