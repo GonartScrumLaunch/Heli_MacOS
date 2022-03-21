@@ -117,23 +117,17 @@ def show(*args):
                 if taxdata[n][0].get() == "Amount":
                     if taxdata[n][2].get() == 1:
                         result += int(taxdata[n][1].get()) * NumOfguestsValue
-                        print("1", result)
                     if taxdata[n][3].get() == 1:
                         result += int(taxdata[n][1].get()) * NumOfNightsValue
-                        print("2", result)
                     if taxdata[n][3].get() == 0 and taxdata[n][2].get() == 0:
                         result += int(taxdata[n][1].get())
-                        print("3", result)
                 else:
                     result += int(taxdata[n][1].get()) / 100 * BaseSubtotalafterExStDiscAddons
                     taxpercamount += int(taxdata[n][1].get())  # под вопросом как должно работать, нужно подсчитать все проценты либо 0
-
-                print("totaltax", result)
-                print("taxpercamount", taxpercamount)
             return result, taxpercamount,
 
 
-        def get_SubTotalAddonsTaxDep(addons, totaltax, taxpercamount, BaseSubtotalafterExStDiscAddons):
+        def get_SubTotalAddonsTaxDep(taxpercamount, BaseSubtotalafterExStDiscAddons):
             result = 0
             DepositTaxAmount = 0
             DepositAmount = 0
@@ -141,20 +135,15 @@ def show(*args):
                 if depositValue[3] == 0:  # Активный чекбокс Депозит Amount, если onvalue=0, иначе offvalue=1
                     if depositValue[4] == 0:  # Активынй чекбокс Collect taxes with the deposit?
                         DepositTaxAmount += int(depositValue[0]) * (taxpercamount / 100)
-                        print("DepTaxA", DepositTaxAmount)
                         result += int(depositValue[0]) + DepositTaxAmount
-                        print("DepSubTotal on", result)
                         return result
                     else:
                         result += int(depositValue[0])
-                        print("DepSubTotal off", result)
                         return result
                 else:
                     DepositAmount += BaseSubtotalafterExStDiscAddons * (float(depositValue[1]) / 100)
-                    print("DepTaxA", DepositAmount)
                     DepositTaxAmount += DepositAmount * (taxpercamount / 100)
                     result += DepositAmount + DepositTaxAmount
-                    print("DepSubTotal %", result)
                     return result
             else:
                 return result
@@ -171,20 +160,32 @@ def show(*args):
         BaseSubTotalafterDiscounts = BaseSubtotal - get_ExStayDisc(BaseSubtotal) - get_discount()
 
         taxes = get_taxes(BaseSubtotalafterExStDiscAddons)
-        DepositSubtotal = get_SubTotalAddonsTaxDep(get_addons(), taxes[0], taxes[1], BaseSubtotalafterExStDiscAddons)
-        print(DepositSubtotal)
+        DepositSubtotal = get_SubTotalAddonsTaxDep(taxes[1], BaseSubtotalafterExStDiscAddons)
 
         FinalPayment = BaseSubTotalafterDiscounts + get_addons() + taxes[0] - DepositSubtotal
-        print("FinalPay", FinalPayment)
 
         FullPayment = float(FinalPayment + FeeValue / 100 * FinalPayment)
 
-        lb2 = tk.Label(calc, text="Result: " + str(round(FullPayment, 2)), fg="#eee", bg="#115A36", font=("Arial", 15, "bold"))
-        lb2.place(x=500, y=710, height=50, width=200)
 
-    submit_button1 = tk.Button(calc, text="Submit", background="#333", foreground="#eee", font=("Arial", 15, "bold"),
-                               command=submit)
-    submit_button1.place(x=500, y=650, height=50, width=200)
+        lb1 = tk.Label(calc, text="Tax Total: " + str(round(taxes[0], 3)), fg="#eee", bg="#115A36",
+                       font=("Arial", 12, "bold"))
+        lb1.place(x=475, y=590, height=30, width=250)
+
+        lb2 = tk.Label(calc, text="Deposit Subtotal: " + str(round(DepositSubtotal, 3)), fg="#eee", bg="#115A36",
+                       font=("Arial", 12, "bold"))
+        lb2.place(x=475, y=630, height=30, width=250)
+
+        lb3 = tk.Label(calc, text="Fee Total: " + str(round(FeeValue / 100 * FinalPayment, 3)), fg="#eee", bg="#115A36",
+                       font=("Arial", 12, "bold"))
+        lb3.place(x=475, y=670, height=30, width=250)
+
+        lb4 = tk.Label(calc, text="Full Payment: " + str(round(FullPayment, 2)), fg="#000000", bg="#66FFB2",
+                       font=("Arial", 15, "bold"))
+        lb4.place(x=475, y=710, height=50, width=250)
+
+    submit_button1 = tk.Button(calc, text="Confirm", bg="#66FFB2", fg="#000000", font=("Arial", 15, "bold"),
+                               borderwidth=7, command=submit)
+    submit_button1.place(x=500, y=530, height=50, width=200)
 
     addon.show(calc)
     deposit.show(calc)

@@ -64,7 +64,7 @@ label3.place(x=420, y=66, height=30, width=150)
 Dropdown_2 = ttk.Combobox(win, values=Currency, state='readonly')
 Dropdown_2.place(x=140, y=99, height=30, width=250)
 
-SubmitButton = tk.Button(win, text="Submit", background="#333", foreground="#eee", padx="10", pady="10",
+SubmitButton = tk.Button(win, text="Confirm", bg="#66FFB2", fg="#000000", borderwidth=5,
                          font=("Arial", 15, "bold"), command=lambda: submit(Dropdown_1.get(), Dropdown_2.get(),
                                                                             ent.get(), DiscAmount[2].get(),
                                                                             DiscAmount[0].get(), DiscPerc[0].get()))
