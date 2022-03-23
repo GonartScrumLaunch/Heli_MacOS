@@ -162,9 +162,9 @@ def show(*args):
         taxes = get_taxes(BaseSubtotalafterExStDiscAddons)
         DepositSubtotal = get_SubTotalAddonsTaxDep(taxes[1], BaseSubtotalafterExStDiscAddons)
 
-        FinalPayment = BaseSubTotalafterDiscounts + get_addons() + taxes[0] - DepositSubtotal
+        GrandTotal = BaseSubTotalafterDiscounts + get_addons() + taxes[0]
 
-        FullPayment = float(FinalPayment + FeeValue / 100 * FinalPayment)
+        FullPayment = float(GrandTotal - DepositSubtotal + FeeValue / 100 * GrandTotal)
 
 
         lb1 = tk.Label(calc, text="Tax Total: " + str(round(taxes[0], 3)), fg="#eee", bg="#115A36",
@@ -175,7 +175,7 @@ def show(*args):
                        font=("Arial", 12, "bold"))
         lb2.place(x=475, y=630, height=30, width=250)
 
-        lb3 = tk.Label(calc, text="Fee Total: " + str(round(FeeValue / 100 * FinalPayment, 3)), fg="#eee", bg="#115A36",
+        lb3 = tk.Label(calc, text="Fee Total: " + str(round(FeeValue / 100 * GrandTotal, 3)), fg="#eee", bg="#115A36",
                        font=("Arial", 12, "bold"))
         lb3.place(x=475, y=670, height=30, width=250)
 
