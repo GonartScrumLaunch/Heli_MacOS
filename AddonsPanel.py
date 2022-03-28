@@ -1,7 +1,7 @@
 import tkinter as tk
 import UIExt as ui
 
-class addons:
+class Addons:
     array_count = []
     array_price = []
     array_label_count = []

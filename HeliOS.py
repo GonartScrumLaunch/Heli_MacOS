@@ -16,8 +16,11 @@ win.resizable(False, False)
 
 
 def submit(*args):
-    adventure_0.show([item for item in args])
-
+    if args[0] == "SeatPricingNightlyRate_L":
+        adv = adventure_0.SeatNRL()
+        adv.show([item for item in args])
+    else:
+        print("Данная формула еще не реализована")
 
 def naccheck():
     if box.get() == 0:
@@ -28,10 +31,11 @@ def naccheck():
 
 fee = tk.DoubleVar(value=3.5)
 box = tk.IntVar()
-сbfee = tk.Checkbutton(win, text="Disable change Processing Fee Rate", variable=box, onvalue=0, offvalue=1,
-                       font=("Arial", 10), command=naccheck)
-сbfee.place(x=420, y=99, height=30, width=301)
-сbfee.select()
+
+checkbox_fee = tk.Checkbutton(win, text="Disable change Processing Fee Rate", variable=box, onvalue=0, offvalue=1,
+                              font=("Arial", 10), command=naccheck)
+checkbox_fee.place(x=420, y=99, height=30, width=301)
+checkbox_fee.select()
 ent = tk.Entry(win, textvariable=fee, justify=tk.CENTER, font=("Arial", 10, "bold"), validate='key',
                vcmd=ui.float_validate(win), state='disabled')
 ent.place(x=571, y=66, height=30, width=150)
@@ -71,3 +75,4 @@ SubmitButton = tk.Button(win, text="Confirm", bg="#66FFB2", fg="#000000", border
 SubmitButton.place(x=340, y=300, height=50, width=120)
 
 win.mainloop()
+#win.mainloop.clear()
