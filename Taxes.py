@@ -3,14 +3,15 @@ from tkinter import ttk
 import UIExt as ui
 
 class TaxesTable:
-    array_label_tax = []
-    array_dropdown = []
-    array_price = []
-    array_delete = []
-    array_checkbox_pers = []
-    array_checkbox_cycle = []
-    array_checkvars = []
-    TaxType = ("Percentage", "Amount")
+    def __init__(self):
+        self.array_label_tax = []
+        self.array_dropdown = []
+        self.array_price = []
+        self.array_delete = []
+        self.array_checkbox_pers = []
+        self.array_checkbox_cycle = []
+        self.array_checkvars = []
+        self.TaxType = ("Percentage", "Amount")
 
     def get_data(self):
         result = []

@@ -2,12 +2,15 @@ import tkinter as tk
 import UIExt as ui
 
 class Addons:
-    array_count = []
-    array_price = []
-    array_label_count = []
-    array_label_price = []
 
-    count = 0
+
+    def __init__(self):
+        self.array_count = []
+        self.array_price = []
+        self.array_label_count = []
+        self.array_label_price = []
+
+        self.count = 0
 
     def add(self, widget):
         if self.count < 10:

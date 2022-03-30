@@ -14,13 +14,16 @@ win.title('Heli Manager')
 win.geometry('800x400+10+10')
 win.resizable(False, False)
 
+adventures = {
+    "SeatPricingNightlyRate_L": adventure_0.SeatNRL()
+}
 
 def submit(*args):
-    if args[0] == "SeatPricingNightlyRate_L":
-        adv = adventure_0.SeatNRL()
-        adv.show([item for item in args])
-    else:
-        print("Данная формула еще не реализована")
+    try:
+        adventures[args[0]].show([item for item in args])
+    except KeyError:
+        print("Формула не реализована для {0}".format(args[0]))
+
 
 def naccheck():
     if box.get() == 0:
