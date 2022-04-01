@@ -1,10 +1,7 @@
 import tkinter as tk
 
-import Taxes
-
-
 def int_element(window, text, x, y, label_width, entry_width, value=0):
-    label = tk.Label(window, text=text, fg="#eee", bg="#333", font=("Arial", "10"))
+    label = tk.Label(window, text=text, fg="#eee", bg="#000000", font=("Arial", "10"))
     label.place(x=x, y=y, height=30, width=label_width)
     ent = tk.Entry(window, textvariable=tk.IntVar(value=value), justify=tk.CENTER, font=("Arial", 10, "bold"), validate='key',
                    vcmd=int_validate(window))
@@ -13,7 +10,7 @@ def int_element(window, text, x, y, label_width, entry_width, value=0):
 
 
 def double_element(window, text, x, y, labelWidth, entryWidth, value=0.0):
-    label = tk.Label(window, text=text, fg="#eee", bg="#333", font=("Arial", "10"))
+    label = tk.Label(window, text=text, fg="#eee", bg="#000000", font=("Arial", "10"))
     label.place(x=x, y=y, height=30, width=labelWidth)
     ent = tk.Entry(window, textvariable=tk.DoubleVar(value=value), justify=tk.CENTER, font=("Arial", 10, "bold"), validate='key',
                    vcmd=float_validate(window))
@@ -31,6 +28,10 @@ def checkbox_element(window, text, x, y, labelWidth, entryWidth, value, command)
                    vcmd=float_validate(window))
     ent.place(x=x + labelWidth + 1, y=y, height=30, width=entryWidth)
     return ent, checkbox, box
+
+def label_element(window, text, x, y, height, labelWidth):
+    label = tk.Label(window, text=text, fg="#FFFFFF", bg="#000000", font=("Arial", "11"))
+    label.place(x=x, y=y, height=height, width=labelWidth)
 
 
 def int_validate(window):

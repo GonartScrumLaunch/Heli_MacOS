@@ -5,7 +5,7 @@ import UIExt as ui
 import AddonsPanel
 
 
-class SeatNRL:
+class SeatDRL:
     def show(self, *args):
         self.args = args[0]
         self.tax = Taxes.TaxesTable()
@@ -45,7 +45,7 @@ class SeatNRL:
                                        validate='key', vcmd=ui.float_validate(self.calc))
         self.ExStayDiscPerc.place(x=646, y=231, height=30, width=124)
 
-        self.NumOfNights = ui.int_element(self.calc, "Number of nights", 415, 66, 230, 124)
+        self.NumOfNights = ui.int_element(self.calc, "Number of days", 415, 66, 230, 124)
         self.NumOfguests = ui.int_element(self.calc, "Number of guests", 415, 99, 230, 124)
         self.PricePerson = ui.int_element(self.calc, "PRICE/PERSON", 415, 132, 230, 124)
         self.ExtStDiscAmount = ui.int_element(self.calc, "Extended Stay Discount, amount", 415, 198, 230, 124)

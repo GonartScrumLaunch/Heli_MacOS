@@ -21,8 +21,8 @@ class TaxesTable:
 
 
     def show(self, widget):
-        tk.Label(widget, text="TAXES", fg="#eee", bg="#333", font=("Arial", 10)).place(x=800, y=33, height=30, width=355)
-        tk.Button(widget, text="Add Taxes", background="#555", foreground="#ccc", font=("Arial", 12),
+        tk.Label(widget, text="TAXES", fg="#eee", bg="#000000", font=("Arial", 10)).place(x=800, y=33, height=30, width=355)
+        tk.Button(widget, text="Add Taxes", background="#66FFB2", foreground="#000000", font=("Arial", 12),
                   command=lambda: self.addtax(widget)).place(x=800, y=66, height=30, width=355)
 
     def callbackFunc(self, event):
@@ -66,7 +66,7 @@ class TaxesTable:
 
     def addtax(self, widget):
         if len(self.array_delete) < 10:
-            self.array_label_tax.append(tk.Label(widget, text=self.get_name(), fg="#eee", bg="#333", font=("Arial", "10")))
+            self.array_label_tax.append(tk.Label(widget, text=self.get_name(), fg="#eee", bg="#000000", font=("Arial", 10)))
             dropdown = ttk.Combobox(widget, values=self.TaxType, state='readonly')
             dropdown.current(0)
             dropdown.bind('<<ComboboxSelected>>', self.callbackFunc)
@@ -74,24 +74,25 @@ class TaxesTable:
             entry = tk.Entry(widget, validate='all', textvariable=tk.IntVar(value=0),
                              justify=tk.CENTER, vcmd=ui.float_validate(widget))
             self.array_price.append(entry)
-            boolvarPers = tk.BooleanVar()
-            boolvarCycle = tk.BooleanVar()
-            self.array_checkvars.append((boolvarPers, boolvarCycle))
+            bool_var_pers = tk.BooleanVar()
+            bool_var_cycle = tk.BooleanVar()
+            self.array_checkvars.append((bool_var_pers, bool_var_cycle))
             self.array_checkbox_pers.append(tk.Checkbutton(widget, text="Tax is PerPerson", font=("Arial", 10),
-                                                           state=tk.ACTIVE, variable=boolvarPers))
+                                                           state=tk.ACTIVE, variable=bool_var_pers))
             self.array_checkbox_cycle.append(tk.Checkbutton(widget, text="Tax is PerNight/Day", font=("Arial", 10),
-                                                            state=tk.ACTIVE, variable=boolvarCycle))
-            self.array_delete.append(tk.Button(widget, text="Delete", background="#555", foreground="#ccc", font="16"))
+                                                            state=tk.ACTIVE, variable=bool_var_cycle))
+            self.array_delete.append(tk.Button(widget, text="Delete", background="#FA0F0F", foreground="#000000",
+                                               font=("Arial", 12)))
             self.rebuild()
 
 
     def get_name(self):
         for n in range(0, len(self.array_delete) + 1):
             if self.is_aviable(n) == 1:
-                return "Taxes №" + str(n + 1)
+                return "Tax №" + str(n + 1)
 
     def is_aviable(self, index):
-        name = "Taxes №" + str(index + 1)
+        name = "Tax №" + str(index + 1)
         for n in range(0, len(self.array_delete)):
             if name == self.array_label_tax[n]['text']:
                 return 0

@@ -22,7 +22,7 @@ class depPanel:
     def show(self, window):
         self.toggle_button = tk.Button(window, text='ON', command=self.toggle)
         self.toggle_button.place(x=415, y=264, height=30, width=177)
-        SwitchLabel = tk.Label(window, text="DEPOSIT POLICY ", fg="#eee", bg="#333", )
+        SwitchLabel = tk.Label(window, text="DEPOSIT POLICY ", fg="#eee", bg="#000000", )
         SwitchLabel.place(x=593, y=264, height=30, width=177)
         self.DepositPerc = ui.double_element(window, "Deposit, % ", 415, 297, 230, 124)
         self.DepositAmount = ui.checkbox_element(window, "Deposit, amount", 415, 330, 230, 124, 0, self.deposit_check)
