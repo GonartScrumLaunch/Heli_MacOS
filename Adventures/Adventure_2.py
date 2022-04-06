@@ -5,7 +5,7 @@ import UIExt as ui
 import AddonsPanel
 
 
-class SeatDRL:
+class SeatDRnoL:
     def show(self, *args):
         self.args = args[0]
         self.tax = Taxes.TaxesTable()
@@ -25,47 +25,31 @@ class SeatDRL:
                  bg="#115A36", font=("Arial", "10")).place(x=30, y=99, height=30, width=355)
         tk.Label(self.calc, text="VARIABLE", fg="#eee", bg="#000000", font=("Arial", 10)).place(x=415, y=33, height=30,
                                                                                                 width=355)
-        a = tk.IntVar()
-        self.box1 = tk.IntVar()
-        check_button_cost_book = tk.Checkbutton(self.calc, text="COST TO BOOK PRIVATELY", variable=self.box1, onvalue=1,
-                                                offvalue=0,
-                                                font=("Arial", 10), state=tk.NORMAL, command=self.priv_check)
-        check_button_cost_book.place(x=415, y=165, height=30, width=230)
-        self.costTobookPr = tk.Entry(self.calc, textvariable=a, justify=tk.CENTER, font=("Arial", 10, "bold"),
-                                     state=tk.DISABLED,
-                                     validate='key', vcmd=ui.int_validate(self.calc))
-        self.costTobookPr.place(x=646, y=165, height=30, width=124)
+
+        self.num_of_days = ui.int_element(self.calc, "Number of days", 415, 66, 230, 124, value=1)
+        self.num_of_days['state'] = "disabled"
+        self.NumOfguests = ui.int_element(self.calc, "Number of guests", 415, 99, 230, 124)
+        self.PricePerson = ui.int_element(self.calc, "PRICE/PERSON", 415, 132, 230, 124)
+        self.ExtStDiscAmount = ui.int_element(self.calc, "Extended Stay Discount, amount", 415, 165, 230, 124)
+
         b = tk.DoubleVar()
         self.box2 = tk.IntVar()
         tk.Checkbutton(self.calc, text="Extended Stay Discount, %", variable=self.box2,
                        onvalue=1, offvalue=0, font=("Arial", 10), state=tk.NORMAL,
-                       command=self.disc_check).place(x=415, y=231, height=30, width=230)
+                       command=self.disc_check).place(x=415, y=198, height=30, width=230)
         self.ExStayDiscPerc = tk.Entry(self.calc, textvariable=b, justify=tk.CENTER, font=("Arial", 10, "bold"),
                                        state=tk.DISABLED,
                                        validate='key', vcmd=ui.float_validate(self.calc))
-        self.ExStayDiscPerc.place(x=646, y=231, height=30, width=124)
-
-        self.num_of_days = ui.int_element(self.calc, "Number of days", 415, 66, 230, 124)
-        self.NumOfguests = ui.int_element(self.calc, "Number of guests", 415, 99, 230, 124)
-        self.PricePerson = ui.int_element(self.calc, "PRICE/PERSON", 415, 132, 230, 124)
-        self.ExtStDiscAmount = ui.int_element(self.calc, "Extended Stay Discount, amount", 415, 198, 230, 124)
+        self.ExStayDiscPerc.place(x=646, y=198, height=30, width=124)
 
         tk.Button(self.calc, text="Confirm", bg="#66FFB2", fg="#000000", font=("Arial", 15, "bold"),
-                                   borderwidth=7, command=self.submit).place(x=500, y=530, height=50, width=200)
+                  borderwidth=7, command=self.submit).place(x=500, y=530, height=50, width=200)
 
         self.addons.show(self.calc)
         self.deposit.show(self.calc)
         self.tax.show(self.calc)
         self.calc.mainloop()
 
-    def priv_check(self):
-        if self.box1.get() == 1:
-            self.costTobookPr.configure(state='normal')
-            self.PricePerson.configure(state='disabled')
-        else:
-            self.costTobookPr.configure(state='disabled')
-            self.PricePerson.configure(state='normal')
-            self.PricePerson['text'] = 0
 
     def disc_check(self):
         if self.box2.get() == 1:
@@ -82,7 +66,6 @@ class SeatDRL:
         self.PricePersonValue = int(self.PricePerson.get())
         self.ExtStDiscAmountValue = int(self.ExtStDiscAmount.get())
         self.ExStayDiscPercValue = float(self.ExStayDiscPerc.get())
-        self.CostTobookPrValue = int(self.costTobookPr.get())
         self.DiscAmountValue = int(self.args[4])
         self.DiscInPercValue = int(self.args[5])
         fee_value = float(self.args[2])
@@ -91,9 +74,9 @@ class SeatDRL:
 
         self.ExStayDisc = [self.ExtStDiscAmountValue, self.ExStayDiscPercValue]
         self.Discount = [self.DiscAmountValue, self.DiscInPercValue]  # это купоны, либо 40$ , либо 60$ либо нет купона
-        self.Lodging = [self.PricePersonValue * self.NumOfguestsValue, self.CostTobookPrValue]
+        self.lodging = self.PricePersonValue * self.NumOfguestsValue
 
-        self.BaseSubtotal = self.num_of_days_value * self.get_lodging()
+        self.BaseSubtotal = self.num_of_days_value * self.lodging
         self.basesubtotal_after_ex_st_disc_dddons = self.BaseSubtotal - self.get_ExStayDisc() + self.get_addons()  # эта формула нужна, чтоб взять процентную таксу (без учёта discount)
         self.basesubtotal_after_discounts = self.BaseSubtotal - self.get_ExStayDisc() - self.get_discount()
         self.taxes = self.get_taxes()
@@ -132,12 +115,6 @@ class SeatDRL:
                  font=("Arial", 15, "bold")).place(x=475, y=710, height=50, width=250)
 
     """Методы используемые для получения значений в формулы"""
-
-    def get_lodging(self):
-        if self.box1.get() == 0:
-            return self.Lodging[0]
-        else:
-            return self.Lodging[1]
 
     def get_discount(self):
         if self.args[3] == 0:

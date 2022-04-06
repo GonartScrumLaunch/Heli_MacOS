@@ -2,6 +2,7 @@ from tkinter import ttk
 import tkinter as tk
 import Adventures.Adventure_0 as adventure_0
 import Adventures.Adventure_1 as adventure_1
+import Adventures.Adventure_2 as adventure_2
 import UIExt as ui
 
 TypeAdventures = ("SeatPr_Multiday_L", "Seat_Multiday_NoL", "Seat_Nightly_Rate_L", "Seat_Daily_Rate_L",
@@ -17,7 +18,8 @@ win.resizable(False, False)
 
 adventures = {
     "Seat_Nightly_Rate_L": adventure_0.SeatNRL(),
-    "Seat_Daily_Rate_L": adventure_1.SeatDRL()
+    "Seat_Daily_Rate_L": adventure_1.SeatDRL(),
+    "Seat_Daily_Rate_NoL": adventure_2.SeatDRnoL()
 }
 
 def submit(*args):
@@ -67,6 +69,7 @@ tk.Label(text="Currency:", fg="#eee", bg="#000000", font=("Arial", "10")).place(
 tk.Label(text="CONSTANT", fg="#eee", bg="#000000", font=("Arial", 10)).place(x=420, y=33, height=30, width=301)
 tk.Label(text="Processing Fee Rate,%:", fg="#eee", bg="#000000", font=("Arial", 10)).place(x=420, y=66, height=30, width=150)
 Dropdown_2 = ttk.Combobox(win, values=Currency, state='readonly')
+Dropdown_2.current(0)
 Dropdown_2.place(x=140, y=99, height=30, width=250)
 
 SubmitButton = tk.Button(win, text="Confirm", bg="#66FFB2", fg="#000000", borderwidth=5,

@@ -20,7 +20,7 @@ class depPanel:
             self.collecttaxes.place(width=355, height=30)
 
     def show(self, window):
-        self.toggle_button = tk.Button(window, text='ON', command=self.toggle)
+        self.toggle_button = tk.Button(window, text='ON', borderwidth=5, command=self.toggle)
         self.toggle_button.place(x=415, y=264, height=30, width=177)
         SwitchLabel = tk.Label(window, text="DEPOSIT POLICY ", fg="#eee", bg="#000000", )
         SwitchLabel.place(x=593, y=264, height=30, width=177)
