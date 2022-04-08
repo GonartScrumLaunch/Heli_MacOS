@@ -3,12 +3,13 @@ import tkinter as tk
 import Adventures.Adventure_0 as adventure_0
 import Adventures.Adventure_1 as adventure_1
 import Adventures.Adventure_2 as adventure_2
+import Adventures.Adventure_3 as adventure_3
 import UIExt as ui
 
-TypeAdventures = ("SeatPr_Multiday_L", "Seat_Multiday_NoL", "Seat_Nightly_Rate_L", "Seat_Daily_Rate_L",
-                  "Seat_Daily_Rate_NoL", "Seat_SingleDay_aNoL", "Accomm_Multiday_aL", "Accomm_Nightly_aL",
-                  "Accomm_Daily_aL", "Flat_Multiday_L", "Flat_Multiday_NoL", "Flat_Nightly_aL", "Flat_Daily_L",
-                  "Flat_Daily_NoL", "Flat_SingleDay_aNoL")
+TypeAdventures = ("Seat Pricing Multi-day Lodging", "Seat Pricing Multi-day NoLodging", "Seat Nightly Rate Lodging",
+                  "Seat Daily Rate Lodging", "Seat Daily Rate NoLodging", "Seat_SingleDay_aNoL", "Accomm_Multi-day_aL",
+                  "Accomm_Nightly_aL", "Accomm_Daily_aL", "Flat_Multi-day_L", "Flat_Multi-day_NoL", "Flat_Nightly_aL",
+                  "Flat_Daily_L", "Flat_Daily_NoL", "Flat_SingleDay_aNoL")
 Currency = ("USD", "BRL", "CAD", "NZD", "AUD", "EUR", "ISK", "MXN", "GBP", "INR", "CHF", "JPY")
 win = tk.Tk()
 win.config(bg='#A0A0A0')
@@ -17,9 +18,10 @@ win.geometry('800x400+10+10')
 win.resizable(False, False)
 
 adventures = {
-    "Seat_Nightly_Rate_L": adventure_0.SeatNRL(),
-    "Seat_Daily_Rate_L": adventure_1.SeatDRL(),
-    "Seat_Daily_Rate_NoL": adventure_2.SeatDRnoL()
+    "Seat Nightly Rate Lodging": adventure_0.SeatNRL(),
+    "Seat Daily Rate Lodging": adventure_1.SeatDRL(),
+    "Seat Daily Rate NoLodging": adventure_2.SeatDRnoL(),
+    "Seat Pricing Multi-day Lodging": adventure_3.SeatPM(),
 }
 
 def submit(*args):
