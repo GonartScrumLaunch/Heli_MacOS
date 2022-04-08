@@ -26,8 +26,7 @@ class SeatDRnoL:
         tk.Label(self.calc, text="VARIABLE", fg="#eee", bg="#000000", font=("Arial", 10)).place(x=415, y=33, height=30,
                                                                                                 width=355)
 
-        self.num_of_days = ui.int_element(self.calc, "Number of days", 415, 66, 230, 124, value=1)
-        self.num_of_days['state'] = "disabled"
+        self.num_of_days = ui.int_element(self.calc, "Number of days", 415, 66, 230, 124)
         self.NumOfguests = ui.int_element(self.calc, "Number of guests", 415, 99, 230, 124)
         self.PricePerson = ui.int_element(self.calc, "PRICE/PERSON", 415, 132, 230, 124)
         self.ExtStDiscAmount = ui.int_element(self.calc, "Extended Stay Discount, amount", 415, 165, 230, 124)
@@ -95,7 +94,7 @@ class SeatDRnoL:
         ui.label_element(self.calc, "Summary: " + str(round(deposit_subtotal[0] + deposit_subtotal[0] *
                                                             (fee_value / 100), 3)) + " $", 30, 710, 50, 190)
         ui.label_element(self.calc, "Tax, amount: " + str(round(self.taxes[2], 3)) + " $", 250, 590, 30, 190)
-        ui.label_element(self.calc, "Tax, %: " + str(round(self.taxes[3], 3)) + " $", 250, 630, 30, 190)
+        ui.label_element(self.calc, "Tax, %: " + str(round(self.taxes[3] - deposit_subtotal[1], 3)) + " $", 250, 630, 30, 190)
         ui.label_element(self.calc, "Fee remaining: " + str(round((grand_total - deposit_subtotal[0]) *
                                                                   (fee_value / 100), 3)) + " $", 250, 670, 30, 190)
         ui.label_element(self.calc, "Summary: " + str(round((grand_total - deposit_subtotal[0]) +
