@@ -112,7 +112,7 @@ class SeatDRL:
         ui.label_element(self.calc, "Summary: " + str(round(deposit_subtotal[0] + deposit_subtotal[0] *
                                                             (fee_value / 100), 3)) + " $", 30, 710, 50, 190)
         ui.label_element(self.calc, "Tax, amount: " + str(round(self.taxes[2], 3)) + " $", 250, 590, 30, 190)
-        ui.label_element(self.calc, "Tax, %: " + str(round(self.taxes[3] - deposit_subtotal[1], 3)) + " $", 250, 630, 30, 190)
+        ui.label_element(self.calc, "Remaining tax,%: " + str(round(self.taxes[3] - deposit_subtotal[1], 3)) + " $", 250, 630, 30, 190)
         ui.label_element(self.calc, "Fee remaining: " + str(round((grand_total - deposit_subtotal[0]) *
                                                                   (fee_value / 100), 3)) + " $", 250, 670, 30, 190)
         ui.label_element(self.calc, "Summary: " + str(round((grand_total - deposit_subtotal[0]) +

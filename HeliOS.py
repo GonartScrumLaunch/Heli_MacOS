@@ -4,6 +4,7 @@ import Adventures.Adventure_0 as adventure_0
 import Adventures.Adventure_1 as adventure_1
 import Adventures.Adventure_2 as adventure_2
 import Adventures.Adventure_3 as adventure_3
+import Adventures.Adventure_4 as adventure_4
 import UIExt as ui
 
 TypeAdventures = ("Seat Pricing Multi-day Lodging", "Seat Pricing Multi-day NoLodging", "Seat Nightly Rate Lodging",
@@ -22,6 +23,7 @@ adventures = {
     "Seat Daily Rate Lodging": adventure_1.SeatDRL(),
     "Seat Daily Rate NoLodging": adventure_2.SeatDRnoL(),
     "Seat Pricing Multi-day Lodging": adventure_3.SeatPM(),
+    "Seat Pricing Multi-day NoLodging": adventure_4.SeatPMnoL()
 }
 
 def submit(*args):

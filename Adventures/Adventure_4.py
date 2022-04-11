@@ -1,14 +1,11 @@
 import tkinter as tk
-
-from Tools.demo.beer import n
-
 import Deposit
 import Taxes
 import UIExt as ui
 import AddonsPanel
 
 
-class SeatPM:
+class SeatPMnoL:
     def show(self, *args):
         self.args = args[0]
         self.tax = Taxes.TaxesTable()
@@ -28,23 +25,15 @@ class SeatPM:
                  bg="#115A36", font=("Arial", "10")).place(x=30, y=99, height=30, width=355)
         tk.Label(self.calc, text="VARIABLE", fg="#eee", bg="#000000", font=("Arial", 10)).place(x=415, y=33, height=30,
                                                                                                 width=355)
+
         self.NumOfNights = ui.int_element(self.calc, "Number of nights(per slot)", 415, 66, 230, 124)
         self.NumOfguests = ui.int_element(self.calc, "Number of guests", 415, 99, 230, 124)
         self.PricePerson = ui.int_element(self.calc, "PRICE/PERSON", 415, 132, 230, 124)
         tk.Label(self.calc, text='"Number of nights(per slot)" variable is used in this type'"\n"
                                  'of adventure if the "Tax is Per Night/Day" checkbox is active'"\n"
                                  '(To correctly calculate "Tax Amount")', fg="#FFFF00",
-                 font=("Arial", "10", "italic"), bg='#A0A0A0').place(x=415, y=198, height=60)
+                 font=("Arial", "10", "italic"), bg='#A0A0A0').place(x=415, y=165, height=60)
 
-        a = tk.IntVar()
-        self.box1 = tk.IntVar()
-        check_button_cost_book = tk.Checkbutton(self.calc, text="COST TO BOOK PRIVATELY", variable=self.box1, onvalue=1,
-                                                offvalue=0, font=("Arial", 10), state=tk.NORMAL,
-                                                command=self.priv_check)
-        check_button_cost_book.place(x=415, y=165, height=30, width=230)
-        self.costTobookPr = tk.Entry(self.calc, textvariable=a, justify=tk.CENTER, font=("Arial", 10, "bold"),
-                                     state=tk.DISABLED, validate='key', vcmd=ui.int_validate(self.calc))
-        self.costTobookPr.place(x=646, y=165, height=30, width=124)
 
         tk.Button(self.calc, text="Confirm", bg="#66FFB2", fg="#000000", font=("Arial", 15, "bold"),
                   borderwidth=7, command=self.submit).place(x=500, y=530, height=50, width=200)
@@ -54,21 +43,12 @@ class SeatPM:
         self.tax.show(self.calc)
         self.calc.mainloop()
 
-    def priv_check(self):
-        if self.box1.get() == 1:
-            self.costTobookPr.configure(state='normal')
-            self.PricePerson.configure(state='disabled')
-        else:
-            self.costTobookPr.configure(state='disabled')
-            self.PricePerson.configure(state='normal')
-            self.PricePerson['text'] = 0
 
     def submit(self):
         self.depositValue = self.deposit.getData()
         self.NumOfNightsValue = int(self.NumOfNights.get())
         self.NumOfguestsValue = int(self.NumOfguests.get())
         self.PricePersonValue = int(self.PricePerson.get())
-        self.CostTobookPrValue = int(self.costTobookPr.get())
         self.DiscAmountValue = int(self.args[4])
         self.DiscInPercValue = int(self.args[5])
         fee_value = float(self.args[2])
@@ -76,15 +56,15 @@ class SeatPM:
         """Списки значений, формулы и финальные лейблы"""
 
         self.Discount = [self.DiscAmountValue, self.DiscInPercValue]  # это купоны, либо 40$ , либо 60$ либо нет купона
-        self.Lodging = [self.PricePersonValue * self.NumOfguestsValue, self.CostTobookPrValue]
+        self.lodging = self.PricePersonValue * self.NumOfguestsValue
 
-        self.BaseSubtotal = self.get_lodging()
+        self.BaseSubtotal = self.lodging
         self.basesubtotal_after_ex_st_disc_dddons = self.BaseSubtotal + self.get_addons()  # эта формула нужна, чтоб взять процентную таксу (без учёта discount)
         self.basesubtotal_after_discounts = self.BaseSubtotal - self.get_discount()
         self.taxes = self.get_taxes()
         self.deposit_payment = self.get_deposit_value()
-        deposit_subtotal = self.get_SubTotalAddonsTaxDep()
 
+        deposit_subtotal = self.get_SubTotalAddonsTaxDep()
         grand_total = self.basesubtotal_after_discounts + self.get_addons() + self.taxes[0]
         full_payment = float(grand_total + fee_value / 100 * grand_total)
 
@@ -97,8 +77,7 @@ class SeatPM:
         ui.label_element(self.calc, "Summary: " + str(round(deposit_subtotal[0] + deposit_subtotal[0] *
                                                             (fee_value / 100), 3)) + " $", 30, 710, 50, 190)
         ui.label_element(self.calc, "Tax, amount: " + str(round(self.taxes[2], 3)) + " $", 250, 590, 30, 190)
-        ui.label_element(self.calc, "Remaining tax,%: " + str(round(self.taxes[3] - deposit_subtotal[1], 3)) + " $", 250, 630,
-                         30, 190)
+        ui.label_element(self.calc, "Remaining tax,%: " + str(round(self.taxes[3] - deposit_subtotal[1], 3)) + " $", 250, 630, 30, 190)
         ui.label_element(self.calc, "Fee remaining: " + str(round((grand_total - deposit_subtotal[0]) *
                                                                   (fee_value / 100), 3)) + " $", 250, 670, 30, 190)
         ui.label_element(self.calc, "Summary: " + str(round((grand_total - deposit_subtotal[0]) +
@@ -118,12 +97,6 @@ class SeatPM:
                  font=("Arial", 15, "bold")).place(x=475, y=710, height=50, width=250)
 
     """Методы используемые для получения значений в формулы"""
-
-    def get_lodging(self):
-        if self.box1.get() == 0:
-            return self.Lodging[0]
-        else:
-            return self.Lodging[1]
 
     def get_discount(self):
         if self.args[3] == 0:
@@ -187,7 +160,7 @@ class SeatPM:
         self.deposit_percentage = 0
         self.deposit_amount = 0
         if self.depositValue[3] == 0:
-            self.deposit_amount += float(self.depositValue[0])
+            self.deposit_amount += int(self.depositValue[0])
             return self.deposit_amount
         else:
             self.deposit_percentage += self.basesubtotal_after_ex_st_disc_dddons * (float(self.depositValue[1]) / 100)
