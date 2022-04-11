@@ -5,10 +5,11 @@ import Adventures.Adventure_1 as adventure_1
 import Adventures.Adventure_2 as adventure_2
 import Adventures.Adventure_3 as adventure_3
 import Adventures.Adventure_4 as adventure_4
+import Adventures.Adventure_5 as adventure_5
 import UIExt as ui
 
-TypeAdventures = ("Seat Pricing Multi-day Lodging", "Seat Pricing Multi-day NoLodging", "Seat Nightly Rate Lodging",
-                  "Seat Daily Rate Lodging", "Seat Daily Rate NoLodging", "Seat_SingleDay_aNoL", "Accomm_Multi-day_aL",
+TypeAdventures = ("Seat Pricing Multi-day Lodging", "Seat Pricing Multi-day NoLodging", "Seat Pricing Nightly Rate Lodging",
+                  "Seat Pricing Daily Rate Lodging", "Seat Pricing Daily Rate NoLodging", "Seat Pricing Single Day NoLodging", "Accomm_Multi-day_aL",
                   "Accomm_Nightly_aL", "Accomm_Daily_aL", "Flat_Multi-day_L", "Flat_Multi-day_NoL", "Flat_Nightly_aL",
                   "Flat_Daily_L", "Flat_Daily_NoL", "Flat_SingleDay_aNoL")
 Currency = ("USD", "BRL", "CAD", "NZD", "AUD", "EUR", "ISK", "MXN", "GBP", "INR", "CHF", "JPY")
@@ -19,11 +20,12 @@ win.geometry('800x400+10+10')
 win.resizable(False, False)
 
 adventures = {
-    "Seat Nightly Rate Lodging": adventure_0.SeatNRL(),
-    "Seat Daily Rate Lodging": adventure_1.SeatDRL(),
-    "Seat Daily Rate NoLodging": adventure_2.SeatDRnoL(),
-    "Seat Pricing Multi-day Lodging": adventure_3.SeatPM(),
-    "Seat Pricing Multi-day NoLodging": adventure_4.SeatPMnoL()
+    "Seat Pricing Nightly Rate Lodging": adventure_0.SeatNRL(),
+    "Seat Pricing Daily Rate Lodging": adventure_1.SeatDRL(),
+    "Seat Pricing Daily Rate NoLodging": adventure_2.SeatDRnoL(),
+    "Seat Pricing Multi-day Lodging": adventure_3.SeatMdL(),
+    "Seat Pricing Multi-day NoLodging": adventure_4.SeatMdnoL(),
+    "Seat Pricing Single Day NoLodging": adventure_5.SeatSdnoL()
 }
 
 def submit(*args):
