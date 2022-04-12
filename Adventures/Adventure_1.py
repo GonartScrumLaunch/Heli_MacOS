@@ -94,7 +94,7 @@ class SeatDRL:
         self.Lodging = [self.PricePersonValue * self.NumOfguestsValue, self.CostTobookPrValue]
 
         self.BaseSubtotal = self.num_of_days_value * self.get_lodging()
-        self.basesubtotal_after_ex_st_disc_dddons = self.BaseSubtotal - self.get_ExStayDisc() + self.get_addons()  # эта формула нужна, чтоб взять процентную таксу (без учёта discount)
+        self.basesubtotal_after_ex_st_disc_addons = self.BaseSubtotal - self.get_ExStayDisc() + self.get_addons()  # эта формула нужна, чтоб взять процентную таксу (без учёта discount)
         self.basesubtotal_after_discounts = self.BaseSubtotal - self.get_ExStayDisc() - self.get_discount()
         self.taxes = self.get_taxes()
         self.deposit_payment = self.get_deposit_value()
@@ -197,7 +197,7 @@ class SeatDRL:
                     result += int(self.depositValue[0])
                     return result, self.DepositTaxAmount
             else:
-                self.DepositAmount += self.basesubtotal_after_ex_st_disc_dddons * (float(self.depositValue[1]) / 100)
+                self.DepositAmount += self.basesubtotal_after_ex_st_disc_addons * (float(self.depositValue[1]) / 100)
                 self.DepositTaxAmount += (self.BaseSubtotal - self.get_ExStayDisc()) * (
                             float(self.depositValue[1]) / 100) * (self.taxpercamount / 100)
                 result += self.DepositAmount + self.DepositTaxAmount
@@ -212,5 +212,5 @@ class SeatDRL:
             self.deposit_amount += int(self.depositValue[0])
             return self.deposit_amount
         else:
-            self.deposit_percentage += self.basesubtotal_after_ex_st_disc_dddons * (float(self.depositValue[1]) / 100)
+            self.deposit_percentage += self.basesubtotal_after_ex_st_disc_addons * (float(self.depositValue[1]) / 100)
             return self.deposit_percentage
