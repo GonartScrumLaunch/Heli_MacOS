@@ -9,13 +9,15 @@ import Adventures.Adventure_5 as Seat_5
 import Adventures.Adventure_6 as Flat_6
 import Adventures.Adventure_7 as Flat_7
 import Adventures.Adventure_8 as Flat_8
+import Adventures.Adventure_9 as Flat_9
+import Adventures.Adventure_10 as Flat_10
 import UIExt as ui
 
 TypeAdventures = ("Seat Pricing Multiday Lodging", "Seat Pricing Multiday NoLodging", "Seat Pricing Nightly Rate Lodging",
                   "Seat Pricing Daily Rate Lodging", "Seat Pricing Daily Rate NoLodging", "Seat Pricing Single Day NoLodging",
                   "Accomm_Multiday_aL", "Accomm_Nightly_aL", "Accomm_Daily_aL", "Flat Rate Pricing Multiday Lodging",
-                  "Flat Rate Pricing Multiday NoLodging", "Flat_Nightly_aL", "Flat_Daily_L", "Flat_Daily_NoL",
-                  "Flat Single Day NoLodging")
+                  "Flat Rate Pricing Multiday NoLodging", "Flat Rate_Nightly_aL", "Flat Rate Pricing Daily Lodging",
+                  "Flat Rate Pricing Daily NoLodging", "Flat Rate Pricing Single Day NoLodging")
 Currency = ("USD", "BRL", "CAD", "NZD", "AUD", "EUR", "ISK", "MXN", "GBP", "INR", "CHF", "JPY")
 win = tk.Tk()
 win.config(bg='#A0A0A0')
@@ -31,8 +33,10 @@ adventures = {
     "Seat Pricing Multiday NoLodging": Seat_4.SeatMdnoL(),
     "Seat Pricing Single Day NoLodging": Seat_5.SeatSdnoL(),
     "Flat Rate Pricing Multiday Lodging": Flat_6.FlatRPMdL(),
-    "Flat Single Day NoLodging": Flat_7.FlatSdnoL(),
+    "Flat Rate Pricing Single Day NoLodging": Flat_7.FlatSdnoL(),
     "Flat Rate Pricing Multiday NoLodging": Flat_8.FlatRPMdnoL(),
+    "Flat Rate Pricing Daily Lodging": Flat_9.FlatRPDL(),
+    "Flat Rate Pricing Daily NoLodging": Flat_10.FlatRPDnoL(),
 }
 
 def submit(*args):
