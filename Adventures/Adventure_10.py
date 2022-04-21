@@ -5,7 +5,7 @@ import UIExt as ui
 import AddonsPanel
 
 
-class FlatRPDnoL:
+class FlatRDnoL:
     def show(self, *args):
         self.args = args[0]
         self.tax = Taxes.TaxesTable()

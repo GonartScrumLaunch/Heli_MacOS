@@ -5,7 +5,7 @@ import UIExt as ui
 import AddonsPanel
 
 
-class FlatRPMdL:
+class FlatMdL:
     def show(self, *args):
         self.args = args[0]
         self.tax = Taxes.TaxesTable()
