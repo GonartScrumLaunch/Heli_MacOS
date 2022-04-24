@@ -77,9 +77,9 @@ class TaxesTable:
             bool_var_pers = tk.BooleanVar()
             bool_var_cycle = tk.BooleanVar()
             self.array_checkvars.append((bool_var_pers, bool_var_cycle))
-            self.array_checkbox_pers.append(tk.Checkbutton(widget, text="Tax is PerPerson", font=("Arial", 10),
+            self.array_checkbox_pers.append(tk.Checkbutton(widget, text="Per Person", font=("Arial", 10),
                                                            state=tk.ACTIVE, variable=bool_var_pers))
-            self.array_checkbox_cycle.append(tk.Checkbutton(widget, text="Tax is PerNight/Day", font=("Arial", 10),
+            self.array_checkbox_cycle.append(tk.Checkbutton(widget, text="Per Night/Day/Unit", font=("Arial", 10),
                                                             state=tk.ACTIVE, variable=bool_var_cycle))
             self.array_delete.append(tk.Button(widget, text="Delete", background="#FA0F0F", foreground="#000000",
                                                font=("Arial", 12)))

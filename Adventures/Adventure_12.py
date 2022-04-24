@@ -5,7 +5,7 @@ import UIExt as ui
 import AddonsPanel
 
 
-class SeatSdnoL:
+class APMdL:
     def show(self, *args):
         self.args = args[0]
         self.tax = Taxes.TaxesTable()
@@ -25,15 +25,15 @@ class SeatSdnoL:
                  bg="#115A36", font=("Arial", "10")).place(x=30, y=99, height=30, width=355)
         tk.Label(self.calc, text="VARIABLE", fg="#eee", bg="#000000", font=("Arial", 10)).place(x=415, y=33, height=30,
                                                                                                 width=355)
-
-        num_of_days = ui.int_element(self.calc, "Number of days", 415, 66, 230, 124, value=1)
-        num_of_days['state'] = "disabled"
+        self.Num_of_units = ui.int_element(self.calc, "Number of units", 415, 66, 230, 124)
         self.NumOfguests = ui.int_element(self.calc, "Number of guests", 415, 99, 230, 124)
         self.PricePerson = ui.int_element(self.calc, "PRICE/PERSON", 415, 132, 230, 124)
-        tk.Label(self.calc, text='Tax is PerNight/Day checkbox is meaningless'"\n"
-                                 'for this type of adventure because it is always'"\n"
-                                 'a 1-day adventure.', fg="#FFFFFF",
-                 font=("Arial", "11"), bg='#000000').place(x=415, y=165, height=90, width=355)
+        self.num_of_slots = ui.int_element(self.calc, "Number of slots", 415, 165, 230, 124, value=1)
+        self.num_of_slots['state'] = "disabled"
+        tk.Label(self.calc, text='The Number of units variable is used'"\n"
+                                 'for the Per Night/Day/Unit checkbox', fg="#FFFFFF", justify='left',
+                 font=("Arial", "11"),
+                 bg='#000000').place(x=415, y=198, height=60, width=355)
 
         tk.Button(self.calc, text="Confirm", bg="#66FFB2", fg="#000000", font=("Arial", 15, "bold"),
                   borderwidth=7, command=self.submit).place(x=500, y=530, height=50, width=200)
@@ -46,23 +46,25 @@ class SeatSdnoL:
 
     def submit(self):
         self.depositValue = self.deposit.getData()
+        self.num_of_units_value = int(self.Num_of_units.get())
         self.NumOfguestsValue = int(self.NumOfguests.get())
         self.PricePersonValue = int(self.PricePerson.get())
         self.DiscAmountValue = int(self.args[4])
         self.DiscInPercValue = int(self.args[5])
         fee_value = float(self.args[2])
 
-        """Списки значений, формулы и финальные лейблы"""
+        # Списки значений, формулы и финальные лейблы
 
         self.Discount = [self.DiscAmountValue, self.DiscInPercValue]  # это купоны, либо 40$ , либо 60$ либо нет купона
-        self.lodging = self.PricePersonValue * self.NumOfguestsValue
-        self.BaseSubtotal = self.lodging
+        self.Lodging = [self.PricePersonValue * self.NumOfguestsValue]
+
+        self.BaseSubtotal = self.Lodging[0]
         self.basesubtotal_after_addons = self.BaseSubtotal + self.get_addons()  # эта формула нужна, чтоб взять процентную таксу (без учёта discount)
         self.basesubtotal_after_discounts = self.BaseSubtotal - self.get_discount()
         self.taxes = self.get_taxes()
         self.deposit_payment = self.get_deposit_value()
-
         deposit_subtotal = self.get_SubTotalAddonsTaxDep()
+
         grand_total = self.basesubtotal_after_discounts + self.get_addons() + self.taxes[0]
         full_payment = float(grand_total + fee_value / 100 * grand_total)
 
@@ -75,7 +77,8 @@ class SeatSdnoL:
         ui.label_element(self.calc, "Summary: " + str(round(deposit_subtotal[0] + deposit_subtotal[0] *
                                                             (fee_value / 100), 3)) + " $", 30, 710, 50, 190)
         ui.label_element(self.calc, "Tax, amount: " + str(round(self.taxes[2], 3)) + " $", 250, 590, 30, 190)
-        ui.label_element(self.calc, "Remaining tax,%: " + str(round(self.taxes[3] - deposit_subtotal[1], 3)) + " $", 250, 630, 30, 190)
+        ui.label_element(self.calc, "Remaining tax,%: " + str(round(self.taxes[3] - deposit_subtotal[1], 3)) + " $", 250, 630,
+                         30, 190)
         ui.label_element(self.calc, "Fee remaining: " + str(round((grand_total - deposit_subtotal[0]) *
                                                                   (fee_value / 100), 3)) + " $", 250, 670, 30, 190)
         ui.label_element(self.calc, "Summary: " + str(round((grand_total - deposit_subtotal[0]) +
@@ -94,7 +97,7 @@ class SeatSdnoL:
         tk.Label(self.calc, text="Full Payment: " + str(round(full_payment, 3)) + " $", fg="#000000", bg="#66FFB2",
                  font=("Arial", 15, "bold")).place(x=475, y=710, height=50, width=250)
 
-    """Методы используемые для получения значений в формулы"""
+    #Методы используемые для получения значений в формулы"""
 
     def get_discount(self):
         if self.args[3] == 0:
@@ -121,8 +124,8 @@ class SeatSdnoL:
                     result += int(self.taxdata[n][1].get()) * self.NumOfguestsValue
                     tax_amount += int(self.taxdata[n][1].get()) * self.NumOfguestsValue
                 if self.taxdata[n][3].get() == 1:
-                    result += int(self.taxdata[n][1].get())
-                    tax_amount += int(self.taxdata[n][1].get())
+                    result += int(self.taxdata[n][1].get()) * self.num_of_units_value
+                    tax_amount += int(self.taxdata[n][1].get()) * self.num_of_units_value
                 if self.taxdata[n][3].get() == 0 and self.taxdata[n][2].get() == 0:
                     result += int(self.taxdata[n][1].get())
                     tax_amount += int(self.taxdata[n][1].get())
@@ -157,7 +160,7 @@ class SeatSdnoL:
         self.deposit_percentage = 0
         self.deposit_amount = 0
         if self.depositValue[3] == 0:
-            self.deposit_amount += int(self.depositValue[0])
+            self.deposit_amount += float(self.depositValue[0])
             return self.deposit_amount
         else:
             self.deposit_percentage += self.basesubtotal_after_addons * (float(self.depositValue[1]) / 100)
