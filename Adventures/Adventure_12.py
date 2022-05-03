@@ -56,7 +56,7 @@ class APMdL:
         # Списки значений, формулы и финальные лейблы
 
         self.Discount = [self.DiscAmountValue, self.DiscInPercValue]  # это купоны, либо 40$ , либо 60$ либо нет купона
-        self.Lodging = [self.PricePersonValue * self.NumOfguestsValue]
+        self.Lodging = [self.PricePersonValue * self.num_of_units_value]
 
         self.BaseSubtotal = self.Lodging[0]
         self.basesubtotal_after_addons = self.BaseSubtotal + self.get_addons()  # эта формула нужна, чтоб взять процентную таксу (без учёта discount)
