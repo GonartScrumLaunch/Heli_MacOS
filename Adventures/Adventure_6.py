@@ -30,7 +30,7 @@ class FlatMdL:
         self.PricePerson = ui.int_element(self.calc, "PRICE/PERSON", 415, 132, 230, 124)
         tk.Label(self.calc, text='For this type of adventure, the fields: \n'
                                  'Number of nights(per slot) and Number of guests\n'
-                                 'are used to calculate "Taxes Amount', fg="#FFFFFF", justify='left',
+                                 'are used to calculate Taxes Amount', fg="#FFFFFF", justify='left',
                  font=("Arial", "10"), bg='#115A36').place(x=415, y=165, height=96, width=355)
 
         tk.Button(self.calc, text="Confirm", bg="#66FFB2", fg="#000000", font=("Arial", 15, "bold"),
@@ -148,7 +148,8 @@ class FlatMdL:
                     return result, self.DepositTaxAmount
             else:
                 self.DepositAmount += self.basesubtotal_after_addons * (float(self.depositValue[1]) / 100)
-                self.DepositTaxAmount += self.DepositAmount * (self.taxpercamount / 100)
+                self.DepositTaxAmount += (self.BaseSubtotal * (float(self.depositValue[1]) / 100)) * \
+                                         (self.taxpercamount / 100)
                 result += self.DepositAmount + self.DepositTaxAmount
                 return result, self.DepositTaxAmount
         else:

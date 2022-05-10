@@ -94,6 +94,7 @@ class SeatNRL:
 
         self.BaseSubtotal = self.NumOfNightsValue * self.get_lodging()
         self.basesubtotal_after_ex_st_disc_addons = self.BaseSubtotal - self.get_ExStayDisc() + self.get_addons()  # эта формула нужна, чтоб взять процентную таксу (без учёта discount)
+        self.basesubtotal_after_ex_st_disc = self.BaseSubtotal - self.get_ExStayDisc()
         self.basesubtotal_after_discounts = self.BaseSubtotal - self.get_ExStayDisc() - self.get_discount()
         self.taxes = self.get_taxes()
         self.deposit_payment = self.get_deposit_value()
@@ -197,7 +198,8 @@ class SeatNRL:
                     return result, self.DepositTaxAmount
             else:
                 self.DepositAmount += self.basesubtotal_after_ex_st_disc_addons * (float(self.depositValue[1]) / 100)
-                self.DepositTaxAmount += self.DepositAmount * (self.taxpercamount / 100)
+                self.DepositTaxAmount += (self.basesubtotal_after_ex_st_disc * (float(self.depositValue[1]) / 100)) * \
+                                         (self.taxpercamount / 100)
                 result += self.DepositAmount + self.DepositTaxAmount
                 return result, self.DepositTaxAmount
         else:

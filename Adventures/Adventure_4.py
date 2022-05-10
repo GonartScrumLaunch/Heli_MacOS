@@ -150,7 +150,8 @@ class SeatMdnoL:
                     return result, self.DepositTaxAmount
             else:
                 self.DepositAmount += self.basesubtotal_after_addons * (float(self.depositValue[1]) / 100)
-                self.DepositTaxAmount += self.DepositAmount * (self.taxpercamount / 100)
+                self.DepositTaxAmount += (self.BaseSubtotal * (float(self.depositValue[1]) / 100)) * \
+                                         (self.taxpercamount / 100)
                 result += self.DepositAmount + self.DepositTaxAmount
                 return result, self.DepositTaxAmount
         else:
