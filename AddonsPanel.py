@@ -48,9 +48,9 @@ class Addons:
 
     def show(self, widget):
         btn = tk.Button(widget, text=" + Add add-ons", background="#66FFB2", foreground="#000000", font=("Arial", 12),
-                        command=lambda: self.add(widget))
-        btn2 = tk.Button(widget, text=" - Remove add-ons", background="#FA0F0F", foreground="#000000", font=("Arial", 12),
-                         command=self.remove)
+                        command=lambda: self.add(widget), borderwidth=5)
+        btn2 = tk.Button(widget, text=" - Remove add-ons", background="#FA0F0F", foreground="#000000",
+                         font=("Arial", 12), borderwidth=5, command=self.remove)
 
         btn.place(x=30, y=132, height=30, width=175)
         btn2.place(x=210, y=132, height=30, width=175)

@@ -29,9 +29,9 @@ class FlatMdnoL:
         self.NumOfguests = ui.int_element(self.calc, "Number of guests", 415, 99, 230, 124)
         self.PricePerson = ui.int_element(self.calc, "PRICE/PERSON", 415, 132, 230, 124)
         tk.Label(self.calc, text='For this type of adventure, the fields: \n'
-                                 '"Number of nights(per slot)" and "Number of guests"\n'
-                                 'are used to calculate "Taxes Amount"', fg="#0000DF", justify='left',
-                 font=("Arial", "11"), bg='#A0A0A0').place(x=415, y=165, height=60, width=355)
+                                 'Number of nights(per slot) and Number of guests\n'
+                                 'are used to calculate Taxes Amount', fg="#FFFFFF", justify='left',
+                 font=("Arial", "10"), bg='#115A36').place(x=415, y=165, height=96, width=355)
 
         tk.Button(self.calc, text="Confirm", bg="#66FFB2", fg="#000000", font=("Arial", 15, "bold"),
                   borderwidth=7, command=self.submit).place(x=500, y=530, height=50, width=200)

@@ -5,7 +5,7 @@ import UIExt as ui
 import AddonsPanel
 
 
-class APMdL:
+class AccomMdL:
     def show(self, *args):
         self.args = args[0]
         self.tax = Taxes.TaxesTable()
@@ -27,13 +27,13 @@ class APMdL:
                                                                                                 width=355)
         self.Num_of_units = ui.int_element(self.calc, "Number of units", 415, 66, 230, 124)
         self.NumOfguests = ui.int_element(self.calc, "Number of guests", 415, 99, 230, 124)
-        self.PricePerson = ui.int_element(self.calc, "PRICE/PERSON", 415, 132, 230, 124)
+        self.PricePerson = ui.int_element(self.calc, "PRICE/UNIT", 415, 132, 230, 124)
         self.num_of_slots = ui.int_element(self.calc, "Number of slots", 415, 165, 230, 124, value=1)
         self.num_of_slots['state'] = "disabled"
-        tk.Label(self.calc, text='The Number of units variable is used'"\n"
+        tk.Label(self.calc, text='The Number of units variable is used\n'
                                  'for the Per Night/Day/Unit checkbox', fg="#FFFFFF", justify='left',
-                 font=("Arial", "11"),
-                 bg='#000000').place(x=415, y=198, height=60, width=355)
+                 font=("Arial", "10"),
+                 bg='#115A36').place(x=415, y=198, height=63, width=355)
 
         tk.Button(self.calc, text="Confirm", bg="#66FFB2", fg="#000000", font=("Arial", 15, "bold"),
                   borderwidth=7, command=self.submit).place(x=500, y=530, height=50, width=200)

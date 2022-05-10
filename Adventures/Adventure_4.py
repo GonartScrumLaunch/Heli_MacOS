@@ -29,10 +29,11 @@ class SeatMdnoL:
         self.NumOfNights = ui.int_element(self.calc, "Number of nights(per slot)", 415, 66, 230, 124)
         self.NumOfguests = ui.int_element(self.calc, "Number of guests", 415, 99, 230, 124)
         self.PricePerson = ui.int_element(self.calc, "PRICE/PERSON", 415, 132, 230, 124)
-        tk.Label(self.calc, text='Number of nights(per slot) variable is used in this type'"\n"
-                                 'of adventure if the Tax is Per Night/Day checkbox'"\n"
-                                 'is active. (To correctly calculate Tax Amount)', fg="#0000DF", justify='left',
-                 font=("Arial", "11"), bg='#A0A0A0').place(x=415, y=165, height=60, width=355)
+
+        tk.Label(self.calc, text='Number of nights(per slot) variable is used in this type\n'
+                                 'of adventure if the Tax is Per Night/Day/Unit checkbox\n'
+                                 'is active. (To correctly calculate Tax Amount)', fg="#FFFFFF", justify='left',
+                 font=("Arial", "10"), bg='#115A36').place(x=415, y=165, height=96, width=355)
 
 
         tk.Button(self.calc, text="Confirm", bg="#66FFB2", fg="#000000", font=("Arial", 15, "bold"),

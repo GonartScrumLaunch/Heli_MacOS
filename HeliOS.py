@@ -13,13 +13,18 @@ import Adventures.Adventure_9 as Flat_9
 import Adventures.Adventure_10 as Flat_10
 import Adventures.Adventure_11 as Flat_11
 import Adventures.Adventure_12 as Accommodation_12
+import Adventures.Adventure_13 as Accommodation_13
+import Adventures.Adventure_14 as Accommodation_14
 import UIExt as ui
 
-TypeAdventures = ("Seat Pricing Multiday Lodging", "Seat Pricing Multiday NoLodging", "Seat Pricing Nightly Rate Lodging",
-                  "Seat Pricing Daily Rate Lodging", "Seat Pricing Daily Rate NoLodging", "Seat Pricing Single Day NoLodging",
-                  "Accommodation Pricing Multiday Lodging", "Accomm_Nightly_aL", "Accomm_Daily_aL", "Flat Rate Pricing Multiday Lodging",
-                  "Flat Rate Pricing Multiday NoLodging", "Flat Rate Pricing Nightly Lodging", "Flat Rate Pricing Daily Lodging",
-                  "Flat Rate Pricing Daily NoLodging", "Flat Rate Pricing Single Day NoLodging")
+TypeAdventures = ("Seat Pricing Multiday Lodging", "Seat Pricing Multiday NoLodging",
+                  "Seat Pricing Nightly Rate Lodging", "Seat Pricing Daily Rate Lodging",
+                  "Seat Pricing Daily Rate NoLodging", "Seat Pricing Single Day NoLodging",
+                  "Accommodation Pricing Multiday Lodging", "Accommodation Pricing Nightly Lodging",
+                  "Accommodation Pricing Daily Lodging", "Flat Rate Pricing Multiday Lodging",
+                  "Flat Rate Pricing Multiday NoLodging", "Flat Rate Pricing Nightly Lodging",
+                  "Flat Rate Pricing Daily Lodging", "Flat Rate Pricing Daily NoLodging",
+                  "Flat Rate Pricing Single Day NoLodging")
 Currency = ("USD", "BRL", "CAD", "NZD", "AUD", "EUR", "ISK", "MXN", "GBP", "INR", "CHF", "JPY")
 win = tk.Tk()
 win.config(bg='#A0A0A0')
@@ -40,7 +45,9 @@ adventures = {
     "Flat Rate Pricing Daily Lodging": Flat_9.FlatDL(),
     "Flat Rate Pricing Daily NoLodging": Flat_10.FlatRDnoL(),
     "Flat Rate Pricing Nightly Lodging": Flat_11.FlatNL(),
-    "Accommodation Pricing Multiday Lodging": Accommodation_12.APMdL(),
+    "Accommodation Pricing Multiday Lodging": Accommodation_12.AccomMdL(),
+    "Accommodation Pricing Nightly Lodging": Accommodation_13.AccomNL(),
+    "Accommodation Pricing Daily Lodging": Accommodation_14.AccomDL()
 }
 
 def submit(*args):

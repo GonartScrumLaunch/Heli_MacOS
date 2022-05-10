@@ -40,6 +40,8 @@ class FlatNL:
         self.NumOfguests = ui.int_element(self.calc, "Number of guests", 415, 99, 230, 124)
         self.PricePerson = ui.int_element(self.calc, "PRICE/PERSON", 415, 132, 230, 124)
         self.ExtStDiscAmount = ui.int_element(self.calc, "Extended Stay Discount, amount", 415, 198, 230, 124)
+        tk.Label(self.calc, text='Number of guests is used for Tax Amount(Per Person)', fg="#FFFFFF", justify='left',
+                 font=("Arial", "10"), bg='#115A36').place(x=415, y=165, height=30, width=355)
 
         tk.Button(self.calc, text="Confirm", bg="#66FFB2", fg="#000000", font=("Arial", 15, "bold"),
                   borderwidth=7, command=self.submit).place(x=500, y=530, height=50, width=200)

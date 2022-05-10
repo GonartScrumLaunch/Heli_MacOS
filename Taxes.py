@@ -22,8 +22,8 @@ class TaxesTable:
 
     def show(self, widget):
         tk.Label(widget, text="TAXES", fg="#eee", bg="#000000", font=("Arial", 10)).place(x=800, y=33, height=30, width=355)
-        tk.Button(widget, text="Add Taxes", background="#66FFB2", foreground="#000000", font=("Arial", 12),
-                  command=lambda: self.addtax(widget)).place(x=800, y=66, height=30, width=355)
+        tk.Button(widget, text="+ Add Taxes", background="#66FFB2", foreground="#000000", font=("Arial", 12),
+                  command=lambda: self.addtax(widget), borderwidth=5).place(x=800, y=66, height=30, width=355)
 
     def callbackFunc(self, event):
         self.rebuild()
@@ -33,13 +33,13 @@ class TaxesTable:
         for n in range(0, len(self.array_delete)):
             y = lendth + n * 33
             self.array_delete[n]['command'] = lambda l = n: self.remove(l)
-            self.array_dropdown[n].place(x=886, y=y, height=30, width=85)
-            self.array_price[n].place(x=972, y=y, height=30, width=82)
+            self.array_dropdown[n].place(x=886, y=y, height=30, width=93)
+            self.array_price[n].place(x=980, y=y, height=30, width=74)
             self.array_label_tax[n].place(x=800, y=y, height=30, width=85)
             self.array_delete[n].place(x=1055, y=y, height=30, width=100)
             if self.array_dropdown[n].get() == "Amount":
                 lendth += 33
-                self.array_checkbox_pers[n].place(x=800, y=y + 33, height=30, width=175)
+                self.array_checkbox_pers[n].place(x=800, y=y + 33, height=30, width=177)
                 self.array_checkbox_cycle[n].place(x=980, y=y + 33, height=30, width=175)
             else:
                 self.array_checkbox_pers[n].place(x=0, y=0, height=0, width=0)
@@ -82,7 +82,7 @@ class TaxesTable:
             self.array_checkbox_cycle.append(tk.Checkbutton(widget, text="Per Night/Day/Unit", font=("Arial", 10),
                                                             state=tk.ACTIVE, variable=bool_var_cycle))
             self.array_delete.append(tk.Button(widget, text="Delete", background="#FA0F0F", foreground="#000000",
-                                               font=("Arial", 12)))
+                                               font=("Arial", 12), borderwidth=5))
             self.rebuild()
 
 
