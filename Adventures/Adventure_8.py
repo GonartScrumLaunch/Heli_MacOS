@@ -83,10 +83,7 @@ class FlatMdnoL:
                          + " $", 250, 710, 50, 190)
 
         tk.Label(self.calc, text="Tax Total: " + str(round(self.taxes[0], 3)) + " $", fg="#eee", bg="#115A36",
-                 font=("Arial", 12, "bold")).place(x=475, y=590, height=30, width=250)
-
-        tk.Label(self.calc, text="Deposit Subtotal: " + str(round(deposit_subtotal[0], 3)) + " $", fg="#eee",
-                 bg="#115A36", font=("Arial", 12, "bold")).place(x=475, y=630, height=30, width=250)
+                 font=("Arial", 12, "bold")).place(x=475, y=630, height=30, width=250)
 
         tk.Label(self.calc, text="Fee Total: " + str(round(fee_value / 100 * grand_total, 3)) + " $", fg="#eee",
                  bg="#115A36", font=("Arial", 12, "bold")).place(x=475, y=670, height=30, width=250)
